@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1469b6e9-00bd-4cff-b323-64acc67eb56e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/bin/appconsole/Cadastrar.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appconsole/Cadastrar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appconsole/Listar.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appconsole/Listar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appconsole/TesteExcecao.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appconsole/TesteExcecao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaIngresso$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaIngresso$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaIngresso$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaIngresso$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaIngresso$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaIngresso$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaIngresso$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaIngresso$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaIngresso$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaIngresso$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaIngresso.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaIngresso.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaJogo$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaJogo$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaJogo$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaJogo$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaJogo$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaJogo$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaJogo$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaJogo$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaJogo$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaJogo$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaJogo$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaJogo$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaJogo$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaJogo$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaJogo.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaJogo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaLogin$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaLogin$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaLogin$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaLogin$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaLogin$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaLogin$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaLogin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaPrincipal$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaPrincipal$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaPrincipal$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaPrincipal$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaPrincipal$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaPrincipal$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaPrincipal$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaPrincipal$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaPrincipal$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaPrincipal$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaPrincipal.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaPrincipal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/daodb4o/DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/daodb4o/DAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/daodb4o/DAOInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/daodb4o/DAOInterface.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/daodb4o/DAOTime.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/daodb4o/DAOTime.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/daodb4o/DAOUsuario.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/daodb4o/DAOUsuario.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/daodb4o/Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/daodb4o/Util.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/modelo/Ingresso.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/modelo/Ingresso.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/modelo/IngressoGrupo.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/modelo/IngressoGrupo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/modelo/IngressoIndividual.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/modelo/IngressoIndividual.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/modelo/Jogo.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/modelo/Jogo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/modelo/Time.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/modelo/Time.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/modelo/Usuario.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/modelo/Usuario.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/regras_negocio/Fachada.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/regras_negocio/Fachada.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/daodb4o/DAOTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daodb4o/DAOTime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/daodb4o/DAOUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daodb4o/DAOUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/daodb4o/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/daodb4o/Util.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/regras_negocio/Fachada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/regras_negocio/Fachada.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2O1NgB49tYh8oVe6SNjlbsqofke" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1469b6e9-00bd-4cff-b323-64acc67eb56e" name="Changes" comment="" />
+      <created>1680724243436</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1680724243436</updated>
+      <workItem from="1680724244663" duration="4445000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
