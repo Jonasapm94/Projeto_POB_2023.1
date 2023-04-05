@@ -1,15 +1,21 @@
 /**********************************
  * IFPB - Curso Superior de Tec. em Sist. para Internet
  * Persistencia de objetos
- * Prof. Fausto Maranhão Ayres
+ * Prof. Fausto Maranhï¿½o Ayres
  **********************************/
 
 package regras_negocio;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import daodb4o.DAO;
+import daodb4o.DAOIngresso;
+import daodb4o.DAOIngressoGrupo;
+import daodb4o.DAOIngressoIndividual;
+import daodb4o.DAOJogo;
+import daodb4o.DAOTime;
 import daodb4o.DAOUsuario;
 import modelo.Ingresso;
 import modelo.IngressoGrupo;
@@ -38,41 +44,65 @@ public class Fachada {
 	}
 
 
-	public static ArrayList<Time> listarTimes() {
+	public static List<Time> listarTimes() {
 		//retorna todos os times
-		return null;
+		DAO.begin();
+		List<Time> times = daotime.listarTimes();
+		DAO.commit();
+		return times;
 	}
-	public static ArrayList<Jogo> listarJogos() {
+	public static List<Jogo> listarJogos() {
 		//retorna todos os jogos
-		return null;
+		DAO.begin();
+		List<Jogo> jogos = daojogo.listarJogos();
+		DAO.commit();
+		return jogos;
 	}
-	public static ArrayList<Usuario> listarUsuarios() {
+	public static List<Usuario> listarUsuarios() {
 		//retorna todos os jogos
-		return null;
+		DAO.begin();
+		List<Usuario> usuarios = daousuario.listarUsuarios();
+		DAO.commit();
+		return usuarios;
 	}
-	public static ArrayList<Ingresso> listarIngressos() {
+	public static List<Ingresso> listarIngressos() {
 		//retorna todos os ingressos 
-		return null;
+		DAO.begin();
+		List<Ingresso> ingressos = daoingresso.listarIngressos();
+		DAO.commit();
+		return ingressos;
 	}
-	public static ArrayList<Jogo> listarJogos(String data) {
+	public static List<Jogo> listarJogos(String data) {
 		//retorna os jogos na data fornecida (query)
-		return null;
+		DAO.begin();
+		List<Jogo> jogos = daojogo.listarJogos(data);
+		DAO.commit();
+
+		return jogos;
 	}
 	public static Ingresso localizarIngresso(int codigo) {
-		//retorna o ingresso com o código fornecido
-		return null;
+		//retorna o ingresso com o cï¿½digo fornecido
+		DAO.begin();
+		Ingresso ingresso = daoingresso.read(codigo);
+		DAO.commit();
+		return ingresso;
 	}
 
 	public static Jogo	localizarJogo(int id) {
 		//retorna o jogo com o id fornecido
-		return null;
+		DAO.begin();
+		Jogo jogo = daojogo.read(id);
+		DAO.commit();
+		return jogo;
 	}
 
 	public static Usuario criarUsuario(String email, String senha) throws Exception{
 		DAO.begin(); 
 		Usuario usu = daousuario.read(email);
-		if (usu!=null)
-			throw new Exception("Usuario ja cadastrado:" + email);
+		if (usu!=null) {
+			DAO.rollback();
+			throw new Exception("Usuario ja cadastrado: " + email);
+		}
 		usu = new Usuario(email, senha);
 
 		daousuario.create(usu);
@@ -95,10 +125,16 @@ public class Fachada {
 	public static Time 	criarTime(String nome, String origem) throws Exception {
 		DAO.begin();
 		//verificar regras de negocio
+		Time timeTemp = daotime.read(nome);
+		if (timeTemp.getNome() == nome){
+			DAO.rollback();
+			throw new Error("Nome de time jÃ¡ existe.");
+		}
 		//criar o time
 		Time time = new Time(nome,origem);
 		
 		//gravar time no banco
+		daotime.create(time);
 		DAO.commit();
 		return null;
 	}
@@ -106,6 +142,19 @@ public class Fachada {
 	public static Jogo 	criarJogo(String data, String local, int estoque, double preco, String nometime1, String nometime2)  throws Exception {
 		DAO.begin();
 		//verificar regras de negocio
+
+		//RN4
+		List<Jogo> jogos = daojogo.readAll();
+		int maxId = 0;
+		for(Jogo jogo : jogos){
+			if(jogo.getId() > maxId){
+				maxId = jogo.getId() + 1;
+			}
+		}
+
+		//RN5
+
+
 	
 		//localizar time1 e time2
 		//criar  jogo 
@@ -125,7 +174,7 @@ public class Fachada {
 	public static IngressoIndividual criarIngressoIndividual(int id) throws Exception{
 		DAO.begin();
 		//verificar regras de negocio
-		//gerar codigo aleatório 
+		//gerar codigo aleatï¿½rio 
 		int codigo = new Random().nextInt(1000000);
 
 		//verificar unicididade do codigo no sistema 
@@ -147,7 +196,7 @@ public class Fachada {
 	public static IngressoGrupo	criarIngressoGrupo(int[] ids) throws Exception{
 		DAO.begin();
 		//verificar regras de negocio
-		//gerar codigo aleatório 
+		//gerar codigo aleatï¿½rio 
 		int codigo = new Random().nextInt(1000000);
 		
 		//verificar unicididade no sistema 

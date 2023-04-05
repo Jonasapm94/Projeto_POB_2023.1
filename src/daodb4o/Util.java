@@ -56,14 +56,22 @@ public class Util {
 		config.common().objectClass(Usuario.class).cascadeOnActivate(true);
 		
 		// criar indices (opcional) sobre campos de busca
-		config.common().objectClass(Ingresso.class).objectField("placa").indexed(true);
-		config.common().objectClass(IngressoGrupo.class).objectField("cpf").indexed(true);
+//		config.common().objectClass(Ingresso.class).objectField("placa").indexed(true);
+//		config.common().objectClass(IngressoGrupo.class).objectField("cpf").indexed(true);
 		
 		// nivel de profundidade do grafo para leitura e atualiza��o
 		config.common().objectClass(Ingresso.class).updateDepth(5);
 		config.common().objectClass(Ingresso.class).minimumActivationDepth(5);
 		config.common().objectClass(IngressoGrupo.class).updateDepth(5);
 		config.common().objectClass(IngressoGrupo.class).minimumActivationDepth(5);
+		config.common().objectClass(IngressoIndividual.class).updateDepth(5);
+		config.common().objectClass(IngressoIndividual.class).minimumActivationDepth(5);
+		config.common().objectClass(Jogo.class).updateDepth(5);
+		config.common().objectClass(Jogo.class).minimumActivationDepth(5);
+		config.common().objectClass(Time.class).updateDepth(5);
+		config.common().objectClass(Time.class).minimumActivationDepth(5);
+		config.common().objectClass(Usuario.class).updateDepth(5);
+		config.common().objectClass(Usuario.class).minimumActivationDepth(5);
 		
 		//conexao local
 		manager = Db4oEmbedded.openFile(config, "banco.db4o");
@@ -87,16 +95,33 @@ public class Util {
 		config.common().objectClass(IngressoIndividual.class).cascadeOnDelete(false);;
 		config.common().objectClass(IngressoIndividual.class).cascadeOnUpdate(true);;
 		config.common().objectClass(IngressoIndividual.class).cascadeOnActivate(true);
+		config.common().objectClass(Jogo.class).cascadeOnDelete(false);;
+		config.common().objectClass(Jogo.class).cascadeOnUpdate(true);;
+		config.common().objectClass(Jogo.class).cascadeOnActivate(true);
+		config.common().objectClass(Time.class).cascadeOnDelete(false);;
+		config.common().objectClass(Time.class).cascadeOnUpdate(true);;
+		config.common().objectClass(Time.class).cascadeOnActivate(true);
+		config.common().objectClass(Usuario.class).cascadeOnDelete(false);;
+		config.common().objectClass(Usuario.class).cascadeOnUpdate(true);;
+		config.common().objectClass(Usuario.class).cascadeOnActivate(true);
 		
 		// criar indices (opcional) sobre campos de busca
-		config.common().objectClass(Ingresso.class).objectField("placa").indexed(true);
-		config.common().objectClass(IngressoGrupo.class).objectField("cpf").indexed(true);
+//		config.common().objectClass(Ingresso.class).objectField("placa").indexed(true);
+//		config.common().objectClass(IngressoGrupo.class).objectField("cpf").indexed(true);
 		
 		// nivel de profundidade do grafo para leitura e atualiza��o
 		config.common().objectClass(Ingresso.class).updateDepth(5);
 		config.common().objectClass(Ingresso.class).minimumActivationDepth(5);
 		config.common().objectClass(IngressoGrupo.class).updateDepth(5);
 		config.common().objectClass(IngressoGrupo.class).minimumActivationDepth(5);
+		config.common().objectClass(IngressoIndividual.class).updateDepth(5);
+		config.common().objectClass(IngressoIndividual.class).minimumActivationDepth(5);
+		config.common().objectClass(Jogo.class).updateDepth(5);
+		config.common().objectClass(Jogo.class).minimumActivationDepth(5);
+		config.common().objectClass(Time.class).updateDepth(5);
+		config.common().objectClass(Time.class).minimumActivationDepth(5);
+		config.common().objectClass(Usuario.class).updateDepth(5);
+		config.common().objectClass(Usuario.class).minimumActivationDepth(5);
 
 		//Conex�o remota 
 		//****************
