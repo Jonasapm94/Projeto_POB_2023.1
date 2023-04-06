@@ -10,13 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import daodb4o.DAO;
-import daodb4o.DAOIngresso;
-import daodb4o.DAOIngressoGrupo;
-import daodb4o.DAOIngressoIndividual;
-import daodb4o.DAOJogo;
-import daodb4o.DAOTime;
-import daodb4o.DAOUsuario;
+import daodb4o.*;
 import modelo.Ingresso;
 import modelo.IngressoGrupo;
 import modelo.IngressoIndividual;
@@ -145,13 +139,7 @@ public class Fachada {
 		//verificar regras de negocio
 
 		//RN4
-		List<Jogo> jogos = daojogo.readAll();
-		int newId = 0;
-		for(Jogo jogo : jogos){
-			if(jogo.getId() > newId){
-				newId = jogo.getId() + 1;
-			}
-		}
+		int newId = daojogo.gerarId();
 
 		//RN5
 		if(nometime1.equals(nometime2)){
@@ -163,18 +151,19 @@ public class Fachada {
 		Time time1 = daotime.read(nometime1);
 		if(time1 == null){
 			DAO.rollback();
-			throw new Error("Não existe um time com este nome: " + nometime1);
+			throw new Exception("Não existe um time com este nome: " + nometime1);
 		}
 
 		Time time2 = daotime.read(nometime2);
 		if(time2 == null){
 			DAO.rollback();
-			throw new Error("Não existe um time com este nome: " + nometime2);
+			throw new Exception("Não existe um time com este nome: " + nometime2);
 		}
 
 
 		//criar  jogo 
 		Jogo jogo = new Jogo(data, local, estoque, preco);
+		jogo.setId(newId);
 
 		//relacionar o jogo com os times e vice-versa 
 		jogo.setTime1(time1);
@@ -191,8 +180,6 @@ public class Fachada {
 	public static IngressoIndividual criarIngressoIndividual(int idJogo) throws Exception{
 		DAO.begin();
 		//verificar regras de negocio
-
-
 		//gerar codigo aleat�rio
 		//verificar unicididade do codigo no sistema
 		List<Ingresso> ingressos = daoingresso.listarIngressos();
@@ -210,11 +197,13 @@ public class Fachada {
 			}
 		} while (flag);
 
+
 		//criar o ingresso individual 
 		IngressoIndividual ingresso = new IngressoIndividual(codigo);
 
 		//relacionar este ingresso com o jogo e vice-versa
 		Jogo jogo = daojogo.read(idJogo);
+
 		if(jogo == null){
 			DAO.rollback();
 			throw new Exception("Nao existe um jogo com este id");
@@ -308,11 +297,11 @@ public class Fachada {
 		Time time = daotime.read(nome);
 		if(time == null){
 			DAO.rollback();
-			throw new Error("Nao existe time com este nome.");
+			throw new Exception("Nao existe time com este nome.");
 		}
 		if(time.getJogos().size() > 0){
 			DAO.rollback();
-			throw new Error ("Time possui jogos. Não podera ser excluido");
+			throw new Exception ("Time possui jogos. Não podera ser excluido");
 		}
 		daotime.delete(time);
 		DAO.commit();
@@ -325,11 +314,11 @@ public class Fachada {
 		Jogo jogo = daojogo.read(id);
 		if (jogo == null){
 			DAO.rollback();
-			throw new Error("Nao existe jogo com o id informado.");
+			throw new Exception("Nao existe jogo com o id informado.");
 		}
 		if (jogo.getIngressos().size() > 0){
 			DAO.rollback();
-			throw new Error("Jogo possui ingressos vendidos, não pode ser excluido.");
+			throw new Exception("Jogo possui ingressos vendidos, não pode ser excluido.");
 		}
 		daojogo.delete(jogo);
 		DAO.commit();

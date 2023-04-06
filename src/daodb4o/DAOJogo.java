@@ -11,7 +11,8 @@ public class DAOJogo extends DAO<Jogo>{
 	public Jogo read (Object chave){
 		// TODO descobrir a chave primária e alterar neste arquivo
 		
-		String id = (String) chave;	//casting para o tipo da chave
+
+		int id = (Integer) chave;	//casting para o tipo da chave
 		Query q = manager.query();
 		q.constrain(Jogo.class);
 		q.descend("id").constrain(id);
