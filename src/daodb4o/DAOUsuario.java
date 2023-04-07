@@ -29,6 +29,12 @@ public class DAOUsuario extends DAO<Usuario>{
 	//--------------------------------------------
 	//  consultas
 	//--------------------------------------------
+
+	public List<Usuario> listarUsuarios(){
+		Query q = manager.query();
+		q.constrain(Usuario.class);
+		return q.execute();
+	}
 	
 }
 

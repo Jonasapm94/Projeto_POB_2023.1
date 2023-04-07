@@ -13,8 +13,8 @@ public class Cadastrar {
 		try {
 			Fachada.criarTime("brasil", "br");
 			Fachada.criarTime("argentina", "ar");
-			Fachada.criarTime("chile", "ch");	
-			Fachada.criarTime("bolivia", "bo");	
+			Fachada.criarTime("chile", "ch");
+			Fachada.criarTime("bolivia", "bo");
 		}
 		catch(Exception ex) {
 			System.out.println("problema ao criar time-->"+ex.getMessage());
@@ -37,7 +37,7 @@ public class Cadastrar {
 			Fachada.criarIngressoIndividual(4);		//id do jogo
 		}
 		catch(Exception ex) {
-			System.out.println("problema ao criar ingresso individual-->"+ex.getMessage());
+			System.out.println("problema ao criar ingresso individual --> " + ex.getMessage());
 		}
 
 		try {
@@ -48,6 +48,7 @@ public class Cadastrar {
 		catch(Exception ex) {
 			System.out.println("problema ao criar ingresso grupo-->"+ex.getMessage());
 		}
+
 
 		Fachada.finalizar();
 		System.out.println("\nfim do programa");
