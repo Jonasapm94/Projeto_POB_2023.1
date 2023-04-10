@@ -10,7 +10,7 @@ public class DAOIngresso extends DAO<Ingresso> {
 	
 	public Ingresso read (Object chave){
 
-		String codigo = (String) chave;	//casting para o tipo da chave
+		Integer codigo = (Integer) chave;	//casting para o tipo da chave
 		Query q = manager.query();
 		q.constrain(Ingresso.class);
 		q.descend("codigo").constrain(codigo);

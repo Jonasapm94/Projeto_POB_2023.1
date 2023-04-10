@@ -45,6 +45,7 @@ public class Fachada {
 		DAO.commit();
 		return times;
 	}
+	
 	public static List<Jogo> listarJogos() {
 		//retorna todos os jogos
 		DAO.begin();
@@ -52,13 +53,15 @@ public class Fachada {
 		DAO.commit();
 		return jogos;
 	}
+	
 	public static List<Usuario> listarUsuarios() {
-		//retorna todos os jogos
+		//retorna todos os usuarios
 		DAO.begin();
 		List<Usuario> usuarios = daousuario.listarUsuarios();
 		DAO.commit();
 		return usuarios;
 	}
+	
 	public static List<Ingresso> listarIngressos() {
 		//retorna todos os ingressos 
 		DAO.begin();
@@ -216,7 +219,7 @@ public class Fachada {
 		//gravar ingresso no banco
 		daoingresso.create(ingresso);
 		DAO.commit();
-		return null;
+		return ingresso;
 	}
 
 	public static IngressoGrupo	criarIngressoGrupo(int[] ids) throws Exception{
@@ -256,7 +259,7 @@ public class Fachada {
 		//gravar ingresso no banco
 		daoingresso.create(ingresso);
 		DAO.commit();
-		return null;
+		return ingresso;
 	}
 
 	public static void	apagarIngresso(int codigo) throws Exception {
