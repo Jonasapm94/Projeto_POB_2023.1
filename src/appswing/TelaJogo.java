@@ -1,7 +1,7 @@
 /**********************************
  * IFPB - Curso Superior de Tec. em Sist. para Internet
  * Persistencia de objetos
- * Prof. Fausto Maranhão Ayres
+ * Prof. Fausto Maranhï¿½o Ayres
  **********************************/
 package appswing;
 
@@ -316,7 +316,19 @@ public class TelaJogo {
 		button_2 = new JButton("Apagar jogo");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//falta implementar
+				try{
+					if (table.getSelectedRow() >= 0){
+						String codigo = (String) table.getValueAt( table.getSelectedRow(), 0);
+						Fachada.apagarJogo(Integer.parseInt(codigo));
+						label.setText("jogo cancelado " +codigo);
+						listagem();
+					}
+					else
+						label.setText("jogo nao selecionado");
+				}
+				catch(Exception ex) {
+					label.setText(ex.getMessage());
+				}
 			}
 		});
 		button_2.setFont(new Font("Tahoma", Font.PLAIN, 12));

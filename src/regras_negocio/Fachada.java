@@ -174,7 +174,7 @@ public class Fachada {
 		//gravar jogo no banco
 		daojogo.create(jogo);
 		DAO.commit();
-		return null;
+		return jogo;
 	}
 
 	public static IngressoIndividual criarIngressoIndividual(int idJogo) throws Exception{
