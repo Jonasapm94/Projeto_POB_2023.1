@@ -121,6 +121,14 @@ public class Fachada {
 
 	public static Time 	criarTime(String nome, String origem) throws Exception {
 		DAO.begin();
+		if (nome.trim().equals("")) {
+			throw new Exception("Nome do time vazio.");
+		}
+		
+		if (origem.trim().equals("")) {
+			throw new Exception("Origem do time vazio.");
+		}
+		
 		//verificar regras de negocio
 		Time timeTemp = daotime.read(nome);
 
@@ -134,7 +142,7 @@ public class Fachada {
 		//gravar time no banco
 		daotime.create(time);
 		DAO.commit();
-		return null;
+		return time;
 	}
 
 	public static Jogo 	criarJogo(String data, String local, int estoque, double preco, String nometime1, String nometime2)  throws Exception {
