@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1469b6e9-00bd-4cff-b323-64acc67eb56e" name="Changes" comment="...">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/regras_negocio/Fachada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/regras_negocio/Fachada.java" afterDir="false" />
-    </list>
+    <list default="true" id="1469b6e9-00bd-4cff-b323-64acc67eb56e" name="Changes" comment="finalizando as consultas, porém ainda falta a quinta ocnsulta." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,8 +48,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1680724243436</updated>
-      <workItem from="1680724244663" duration="20681000" />
+      <workItem from="1680724244663" duration="21076000" />
     </task>
+    <task id="LOCAL-00001" summary="finalizando as consultas, porém ainda falta a quinta ocnsulta.">
+      <created>1681493976401</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1681493976402</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -60,6 +65,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="..." />
-    <option name="LAST_COMMIT_MESSAGE" value="..." />
+    <MESSAGE value="finalizando as consultas, porém ainda falta a quinta ocnsulta." />
+    <option name="LAST_COMMIT_MESSAGE" value="finalizando as consultas, porém ainda falta a quinta ocnsulta." />
   </component>
 </project>
