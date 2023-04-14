@@ -386,5 +386,12 @@ public class Fachada {
 	}
 
 	//Consulta 5: Quais os códigos dos ingressos de todos os jogos de um time?
-//	public static List<int> co
+	public static List<int> codigosIngressoPorTime(String nomeTime) throws Exception{
+		List<Jogo> jogos = listarJogosDoTime(nomeTime);
+		List<int> codigos = new List<>();
+		for(Ingresso ingresso: jogo.getIngressos()){
+			codigos.push(ingresso.getCodigo());
+		}
+		return codigos;
+	}
 }
