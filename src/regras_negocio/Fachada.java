@@ -7,6 +7,7 @@
 package regras_negocio;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -327,4 +328,63 @@ public class Fachada {
 	/**********************************
 	 * 5 Consultas
 	 **********************************/
+
+//	Consulta 1: Quais as datas que time x joga
+	public static List<Jogo> listarJogosDoTime(String nomeTime) throws Exception{
+		DAO.begin();
+		Time time = daotime.read(nomeTime);
+		if (time == null){
+			DAO.rollback();
+			throw new Exception("Nao existe um time com este nome");
+		}
+		List<Jogo> jogos = time.getJogos();
+
+
+		DAO.commit();
+		return jogos;
+	}
+
+
+	// Consulta 2: Quantos ingressos individuais um determinado time vendeu
+	public static int numIngressosIndividuaisVendidosPorTime(String nomeTime) throws Exception {
+		List<Jogo> jogosDoTime = listarJogosDoTime(nomeTime);
+		int somaIng = 0;
+		for(Jogo jogo : jogosDoTime){
+			List<Ingresso> ingressosDoJogo = jogo.getIngressos();
+			for(Ingresso ingresso : ingressosDoJogo){
+				if (ingresso instanceof IngressoIndividual){
+					somaIng++;
+				}
+			}
+		}
+		return somaIng;
+	}
+
+	//Consulta 3: Quantos ingressos-grupo foram vendidos por time
+	public static int numIngressosGrupoVendidosPorTime(String nomeTime) throws Exception {
+		List<Jogo> jogosDoTime = listarJogosDoTime(nomeTime);
+		int somaIng = 0;
+		for(Jogo jogo : jogosDoTime){
+			List<Ingresso> ingressosDoJogo = jogo.getIngressos();
+			for(Ingresso ingresso : ingressosDoJogo){
+				if (ingresso instanceof IngressoGrupo){
+					somaIng++;
+				}
+			}
+		}
+		return somaIng;
+	}
+
+	//Consulta 4: Qual o estoque de ingressos disponíveis para os jogos de um determinado time?
+	public static int estoqueTotalDoTime(String nomeTime) throws Exception {
+		List<Jogo> jogos = listarJogosDoTime(nomeTime);
+		int estoqueTotal = 0;
+		for(Jogo jogo: jogos){
+			estoqueTotal += jogo.getEstoque();
+		}
+		return estoqueTotal;
+	}
+
+	//Consulta 5: Quais os códigos dos ingressos de todos os jogos de um time?
+//	public static List<int> co
 }
