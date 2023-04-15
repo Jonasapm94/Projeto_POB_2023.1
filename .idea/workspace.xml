@@ -4,51 +4,57 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1469b6e9-00bd-4cff-b323-64acc67eb56e" name="Changes" comment="finalizando as consultas, porém ainda falta a quinta ocnsulta." />
+
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="fb3c5027-ac1c-4c4f-9bd3-48fb7b2a8c23" />
+        <option name="url" value="git@github.com:Jonasapm94/Projeto_POB_2023.1.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2O1NgB49tYh8oVe6SNjlbsqofke" />
+  <component name="ProjectId" id="2O6NPBKGX42WcnfL42POGBbO0rB" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "Z:/Coding/IFPB/POB/sistema-ingressos",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1469b6e9-00bd-4cff-b323-64acc67eb56e" name="Changes" comment="" />
-      <created>1680724243436</created>
+      <changelist id="7c3abea0-51bb-4d15-880c-8d7588efc0b6" name="Changes" comment="" />
+      <created>1680877046431</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1680724243436</updated>
-      <workItem from="1680724244663" duration="21076000" />
+
     </task>
     <task id="LOCAL-00001" summary="finalizando as consultas, porém ainda falta a quinta ocnsulta.">
       <created>1681493976401</created>
@@ -63,9 +69,6 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="..." />
-    <MESSAGE value="finalizando as consultas, porém ainda falta a quinta ocnsulta." />
-    <option name="LAST_COMMIT_MESSAGE" value="finalizando as consultas, porém ainda falta a quinta ocnsulta." />
+
   </component>
 </project>
