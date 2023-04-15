@@ -1,7 +1,7 @@
 /**********************************
  * IFPB - Curso Superior de Tec. em Sist. para Internet
  * Persistencia de objetos
- * Prof. Fausto Maranhão Ayres
+ * Prof. Fausto Maranhï¿½o Ayres
  **********************************/
 package appswing;
 
@@ -147,7 +147,7 @@ public class TelaJogo {
 					String nome1 = textField.getText();
 					String nome2 = textField_3.getText();
 					Jogo jogo = Fachada.criarJogo(data, local, 50000, Double.parseDouble(preco),nome1,nome2);
-					label.setText("jogo criado: "+jogo.getId());
+					label.setText("jogo criado: "+ jogo.getId());
 					listagem();
 				}
 				catch(Exception ex) {
