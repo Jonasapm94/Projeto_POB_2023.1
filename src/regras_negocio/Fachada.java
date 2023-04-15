@@ -7,7 +7,6 @@
 package regras_negocio;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -150,8 +149,19 @@ public class Fachada {
 		DAO.begin();
 		//verificar regras de negocio
 
+		if (preco <= 0){
+			DAO.rollback();
+			throw new Exception("Jogo nao pode ser criado com preco menor ou igual a zero.");
+		}
+
 		//RN4
 		int newId = daojogo.gerarId();
+
+		if (estoque <= 0){
+			DAO.rollback();
+			throw new Exception("Jogo nao pode ser criado com estoque menor ou igual a zero.");
+
+		}
 
 		//RN5
 		if(nometime1.equals(nometime2)){
@@ -186,7 +196,7 @@ public class Fachada {
 		//gravar jogo no banco
 		daojogo.create(jogo);
 		DAO.commit();
-		return null;
+		return jogo;
 	}
 
 	public static IngressoIndividual criarIngressoIndividual(int idJogo) throws Exception{
@@ -218,7 +228,7 @@ public class Fachada {
 
 		if(jogo == null){
 			DAO.rollback();
-			throw new Exception("Nao existe um jogo com este id");
+			throw new Exception("Nao existe um jogo com este id informado: " + idJogo);
 		}
 
 		ingresso.setJogo(jogo);
