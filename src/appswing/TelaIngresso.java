@@ -1,7 +1,7 @@
 /**********************************
  * IFPB - Curso Superior de Tec. em Sist. para Internet
  * Persistencia de objetos
- * Prof. Fausto Maranhão Ayres
+ * Prof. Fausto Maranhï¿½o Ayres
  **********************************/
 
 package appswing;
@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -26,11 +27,14 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.db4o.ObjectContainer;
+
 import modelo.Ingresso;
 import modelo.IngressoGrupo;
 import modelo.IngressoIndividual;
 import modelo.Jogo;
 import regras_negocio.Fachada;
+import javax.swing.JTextField;
 
 public class TelaIngresso {
 	private JFrame frame;
@@ -44,7 +48,7 @@ public class TelaIngresso {
 	private JLabel label_3;
 	private JButton button_2;
 	private JButton button_3;
-
+	private ObjectContainer manager;
 
 
 	/**
@@ -123,7 +127,7 @@ public class TelaIngresso {
 		label_2 = new JLabel("jogos:");
 		label_2.setHorizontalAlignment(SwingConstants.LEFT);
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_2.setBounds(467, 261, 47, 14);
+		label_2.setBounds(283, 276, 412, 14);
 		frame.getContentPane().add(label_2);
 
 		button_1 = new JButton("Criar ingresso individual");
@@ -132,9 +136,9 @@ public class TelaIngresso {
 				try {
 					String id = JOptionPane.showInputDialog("digite o id do jogo");
 					IngressoIndividual ingresso = Fachada.criarIngressoIndividual(Integer.parseInt(id));
-					label_3.setText("Codigo:" + ingresso.getCodigo());
-					label_2.setText("Jogo:" + ingresso.getJogo().getId());
-					label.setText("ingresso criado: ");
+					label_3.setText("Codigo: " + ingresso.getCodigo());
+					label_2.setText("Jogo: " + ingresso.getJogo().getId());
+					label.setText("Ingresso criado: ");
 					listagem();
 				}catch(NumberFormatException ex) {
 					label.setText("id nao numerico:");
@@ -160,21 +164,21 @@ public class TelaIngresso {
 		label_3 = new JLabel("codigo:");
 		label_3.setHorizontalAlignment(SwingConstants.LEFT);
 		label_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_3.setBounds(284, 261, 63, 14);
+		label_3.setBounds(283, 247, 412, 14);
 		frame.getContentPane().add(label_3);
 
 		button_2 = new JButton("Cancelar Ingresso");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try{
-					if (table.getSelectedRow() >= 0){
-						String codigo = (String) table.getValueAt( table.getSelectedRow(), 1);
-						Fachada.apagarIngresso(Integer.parseInt(codigo));
-						label.setText("cancelou ingresso " +codigo);
+					if (table.getSelectedRow() >= 0){				
+						Integer codigo = (Integer) table.getValueAt(table.getSelectedRow(),1);
+						Fachada.apagarIngresso(codigo);
+						label.setText("Cancelou o ingresso " + Integer.toString(codigo));
 						listagem();
 					}
 					else
-						label.setText("ingresso nao selecionado");
+						label.setText("Ingresso nao selecionado");
 				}
 				catch(Exception ex) {
 					label.setText(ex.getMessage());
@@ -194,20 +198,20 @@ public class TelaIngresso {
 					//leitura dos ids
 					do{
 						try {
-							id = JOptionPane.showInputDialog("digite o id do jogo ou <enter>");
+							id = JOptionPane.showInputDialog("Digite o id do jogo ou <enter> para cancelar");
 							lista.add(Integer.parseInt(id));
 						}
 						catch(NumberFormatException ex) {
-							label.setText("id nao numerico:");
+							label.setText("ID nao numerico.");
 						}
-					}while(id.isEmpty());
+					}while(!(id.isEmpty()));
 
 					//converter o arraylist num array
 					int[] array = lista.stream().mapToInt(Integer::intValue).toArray();
 					IngressoGrupo ingresso = Fachada.criarIngressoGrupo(array);
-					label_3.setText("Codigo:" + ingresso.getCodigo());
-					label_2.setText("Jogos:" + array);
-					label.setText("ingresso criado: ");
+					label_3.setText("Codigo: " + ingresso.getCodigo());
+					label_2.setText("Jogos: " + Arrays.toString(array));
+					label.setText("Ingresso criado.");
 					listagem();
 				}catch(Exception ex) {
 					label.setText(ex.getMessage());
@@ -217,6 +221,11 @@ public class TelaIngresso {
 		button_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		button_3.setBounds(21, 272, 201, 23);
 		frame.getContentPane().add(button_3);
+	}
+
+	private void JFrame() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public void listagem() {

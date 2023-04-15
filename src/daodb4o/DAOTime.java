@@ -1,6 +1,5 @@
 package daodb4o;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.db4o.query.Query;
@@ -10,7 +9,6 @@ import modelo.Time;
 public class DAOTime extends DAO<Time> {
 	
 	public Time read (Object chave){
-		// TODO descobrir a chave primária e alterar neste arquivo
 
 		String nome = (String) chave;	//casting para o tipo da chave
 		Query q = manager.query();

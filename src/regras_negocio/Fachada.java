@@ -45,6 +45,7 @@ public class Fachada {
 		DAO.commit();
 		return times;
 	}
+	
 	public static List<Jogo> listarJogos() {
 		//retorna todos os jogos
 		DAO.begin();
@@ -52,13 +53,15 @@ public class Fachada {
 		DAO.commit();
 		return jogos;
 	}
+	
 	public static List<Usuario> listarUsuarios() {
-		//retorna todos os jogos
+		//retorna todos os usuarios
 		DAO.begin();
 		List<Usuario> usuarios = daousuario.listarUsuarios();
 		DAO.commit();
 		return usuarios;
 	}
+	
 	public static List<Ingresso> listarIngressos() {
 		//retorna todos os ingressos 
 		DAO.begin();
@@ -118,6 +121,14 @@ public class Fachada {
 
 	public static Time 	criarTime(String nome, String origem) throws Exception {
 		DAO.begin();
+		if (nome.trim().equals("")) {
+			throw new Exception("Nome do time vazio.");
+		}
+		
+		if (origem.trim().equals("")) {
+			throw new Exception("Origem do time vazio.");
+		}
+		
 		//verificar regras de negocio
 		Time timeTemp = daotime.read(nome);
 
@@ -131,15 +142,26 @@ public class Fachada {
 		//gravar time no banco
 		daotime.create(time);
 		DAO.commit();
-		return null;
+		return time;
 	}
 
 	public static Jogo 	criarJogo(String data, String local, int estoque, double preco, String nometime1, String nometime2)  throws Exception {
 		DAO.begin();
 		//verificar regras de negocio
 
+		if (preco <= 0){
+			DAO.rollback();
+			throw new Exception("Jogo nao pode ser criado com preco menor ou igual a zero.");
+		}
+
 		//RN4
 		int newId = daojogo.gerarId();
+
+		if (estoque <= 0){
+			DAO.rollback();
+			throw new Exception("Jogo nao pode ser criado com estoque menor ou igual a zero.");
+
+		}
 
 		//RN5
 		if(nometime1.equals(nometime2)){
@@ -206,7 +228,7 @@ public class Fachada {
 
 		if(jogo == null){
 			DAO.rollback();
-			throw new Exception("Nao existe um jogo com este id");
+			throw new Exception("Nao existe um jogo com este id informado: " + idJogo);
 		}
 
 		ingresso.setJogo(jogo);
@@ -216,7 +238,7 @@ public class Fachada {
 		//gravar ingresso no banco
 		daoingresso.create(ingresso);
 		DAO.commit();
-		return null;
+		return ingresso;
 	}
 
 	public static IngressoGrupo	criarIngressoGrupo(int[] ids) throws Exception{
@@ -256,7 +278,7 @@ public class Fachada {
 		//gravar ingresso no banco
 		daoingresso.create(ingresso);
 		DAO.commit();
-		return null;
+		return ingresso;
 	}
 
 	public static void	apagarIngresso(int codigo) throws Exception {
@@ -327,4 +349,73 @@ public class Fachada {
 	/**********************************
 	 * 5 Consultas
 	 **********************************/
+
+//	Consulta 1: Quais as datas que time x joga
+	public static List<Jogo> listarJogosDoTime(String nomeTime) throws Exception{
+		DAO.begin();
+		Time time = daotime.read(nomeTime);
+		if (time == null){
+			DAO.rollback();
+			throw new Exception("Nao existe um time com este nome");
+		}
+		List<Jogo> jogos = time.getJogos();
+
+
+		DAO.commit();
+		return jogos;
+	}
+
+
+	// Consulta 2: Quantos ingressos individuais um determinado time vendeu
+	public static int numIngressosIndividuaisVendidosPorTime(String nomeTime) throws Exception {
+		List<Jogo> jogosDoTime = listarJogosDoTime(nomeTime);
+		int somaIng = 0;
+		for(Jogo jogo : jogosDoTime){
+			List<Ingresso> ingressosDoJogo = jogo.getIngressos();
+			for(Ingresso ingresso : ingressosDoJogo){
+				if (ingresso instanceof IngressoIndividual){
+					somaIng++;
+				}
+			}
+		}
+		return somaIng;
+	}
+
+	//Consulta 3: Quantos ingressos-grupo foram vendidos por time
+	public static int numIngressosGrupoVendidosPorTime(String nomeTime) throws Exception {
+		List<Jogo> jogosDoTime = listarJogosDoTime(nomeTime);
+		int somaIng = 0;
+		for(Jogo jogo : jogosDoTime){
+			List<Ingresso> ingressosDoJogo = jogo.getIngressos();
+			for(Ingresso ingresso : ingressosDoJogo){
+				if (ingresso instanceof IngressoGrupo){
+					somaIng++;
+				}
+			}
+		}
+		return somaIng;
+	}
+
+	//Consulta 4: Qual o estoque de ingressos disponíveis para os jogos de um determinado time?
+	public static int estoqueTotalDoTime(String nomeTime) throws Exception {
+		List<Jogo> jogos = listarJogosDoTime(nomeTime);
+		int estoqueTotal = 0;
+		for(Jogo jogo: jogos){
+			estoqueTotal += jogo.getEstoque();
+		}
+		return estoqueTotal;
+	}
+
+	//Consulta 5: Quais os códigos dos ingressos de todos os jogos de um time?
+	public static ArrayList<Integer> codigosIngressoPorTime(String nomeTime) throws Exception{
+		List<Jogo> jogos = listarJogosDoTime(nomeTime);
+		ArrayList<Integer> codigos = new ArrayList<>();
+		for (Jogo jogo : jogos){
+			for(Ingresso ingresso: jogo.getIngressos()){
+				codigos.add(ingresso.getCodigo());
+			}
+		}
+
+		return codigos;
+	}
 }
