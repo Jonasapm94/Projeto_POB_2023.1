@@ -1,7 +1,7 @@
 /**********************************
  * IFPB - Curso Superior de Tec. em Sist. para Internet
  * Persistencia de objetos
- * Prof. Fausto Maranhão Ayres
+ * Prof. Fausto Maranhï¿½o Ayres
  **********************************/
 package modelo;
 
@@ -23,7 +23,6 @@ public class IngressoIndividual extends Ingresso {
 
 	public void setJogo(Jogo jogo) {
 		this.jogo = jogo;
-		jogo.setEstoque(jogo.getEstoque() - 1 );
 	}
 
 	@Override

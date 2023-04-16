@@ -25,7 +25,6 @@ public class IngressoGrupo extends Ingresso {
 	
 	public void adicionar(Jogo j){
 		jogos.add(j);
-		j.setEstoque(j.getEstoque() - 1 );	
 	}
 	public void remover(Jogo j){
 		jogos.remove(j);
