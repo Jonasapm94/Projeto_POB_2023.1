@@ -9,8 +9,6 @@ import modelo.Jogo;
 public class DAOJogo extends DAO<Jogo>{
 
 	public Jogo read (Object chave){
-		// TODO descobrir a chave primária e alterar neste arquivo
-		
 
 		int id = (Integer) chave;	//casting para o tipo da chave
 		Query q = manager.query();

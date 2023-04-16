@@ -21,7 +21,7 @@ public class Listar {
 			//---------------------
 			System.out.println("\n---listar times---");
 			for (Time t : Fachada.listarTimes())
-				System.out.println(t);
+			System.out.println(t);
 
 			System.out.println("\n---listar jogos---");
 			for (Jogo j : Fachada.listarJogos())
@@ -49,6 +49,7 @@ public class Listar {
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 		
 		Fachada.finalizar();
