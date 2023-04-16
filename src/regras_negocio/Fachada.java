@@ -234,6 +234,7 @@ public class Fachada {
 		ingresso.setJogo(jogo);
 		jogo.adicionar(ingresso);
 		jogo.setEstoque(jogo.getEstoque()-1);
+		daojogo.update(jogo);
 
 		//gravar ingresso no banco
 		daoingresso.create(ingresso);
@@ -274,6 +275,7 @@ public class Fachada {
 			jogo.adicionar(ingresso);
 			jogo.setEstoque(jogo.getEstoque()-1);
 			ingresso.adicionar(jogo);
+			daojogo.update(jogo);
 		}
 		//gravar ingresso no banco
 		daoingresso.create(ingresso);
@@ -298,6 +300,7 @@ public class Fachada {
 			for (Jogo j : jogos) {
 				j.remover(grupo);
 				j.setEstoque(j.getEstoque()+1);
+				daojogo.update(j);
 			}
 		}
 		else 
@@ -305,6 +308,7 @@ public class Fachada {
 				Jogo jogo = individuo.getJogo();
 				jogo.remover(individuo);
 				jogo.setEstoque(jogo.getEstoque()+1);
+				daojogo.update(jogo);
 			}
 
 		//apagar ingresso no banco
@@ -342,7 +346,17 @@ public class Fachada {
 			DAO.rollback();
 			throw new Exception("Jogo possui ingressos vendidos, não pode ser excluido.");
 		}
+		
+		Time time1 = jogo.getTime1();
+		time1.remover(jogo);
+		daotime.update(time1);
+
+		Time time2 = jogo.getTime2();
+		time2.remover(jogo);
+		daotime.update(time2);
+
 		daojogo.delete(jogo);
+		
 		DAO.commit();
 	}
 
