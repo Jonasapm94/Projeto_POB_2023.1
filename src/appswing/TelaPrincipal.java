@@ -106,7 +106,7 @@ public class TelaPrincipal {
 		mnConsulta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//TelaConsulta tela = new TelaConsulta();
+				TelaConsultas tela = new TelaConsultas();
 			}
 		});
 		menuBar.add(mnConsulta);
