@@ -5,6 +5,7 @@ import java.util.List;
 import com.db4o.query.Query;
 
 import modelo.IngressoGrupo;
+import modelo.IngressoIndividual;
 
 public class DAOIngressoGrupo extends DAO<IngressoGrupo> {
 	
@@ -21,5 +22,15 @@ public class DAOIngressoGrupo extends DAO<IngressoGrupo> {
 		else
 			return null;
 	}
+	
+	//Consulta 3: Quantos ingressos-grupo foram vendidos por time
+	public List<IngressoGrupo> listarIngressosGrupoTime(String nomeTime){
+		Query q = manager.query();
+		q.constrain(IngressoGrupo.class);
+		q.descend("jogos").descend("time1").descend("nome").constrain(nomeTime).or(q.descend("jogos").descend("time2").descend("nome").constrain(nomeTime));
+		List<IngressoGrupo> resultado = q.execute();
+		return resultado;
+	}
+
 
 }

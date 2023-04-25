@@ -1,10 +1,13 @@
 package daodb4o;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import com.db4o.query.Query;
 
 import modelo.Ingresso;
+import modelo.IngressoGrupo;
+import modelo.IngressoIndividual;
 
 public class DAOIngresso extends DAO<Ingresso> {
 	
@@ -26,7 +29,20 @@ public class DAOIngresso extends DAO<Ingresso> {
 		q.constrain(Ingresso.class);
 		return q.execute();
 	}
-
-
+	
+	//Consulta 5: Quais os códigos dos ingressos de todos os jogos de um time?
+	
+	public List<Ingresso> ingressosTime(String nomeTime){
+		List<Ingresso> resultado = new ArrayList<Ingresso>();
+		Query q = manager.query();
+		q.constrain(IngressoIndividual.class);
+		q.descend("jogo").descend("time1").descend("nome").constrain(nomeTime).or(q.descend("jogo").descend("time2").descend("nome").constrain(nomeTime));
+		resultado.addAll(q.execute());
+		q = manager.query();
+		q.constrain(IngressoGrupo.class);
+		q.descend("jogos").descend("time1").descend("nome").constrain(nomeTime).or(q.descend("jogos").descend("time2").descend("nome").constrain(nomeTime));
+		resultado.addAll(q.execute());
+		return resultado;
+	}
 
 }

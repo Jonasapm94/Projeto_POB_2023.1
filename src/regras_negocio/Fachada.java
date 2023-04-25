@@ -365,63 +365,40 @@ public class Fachada {
 	 **********************************/
 
 //	Consulta 1: Quais as datas que time x joga
-	public static ArrayList<Jogo> listarJogosDoTime(String nomeTime) throws Exception{
+	public static List<Jogo> listarJogosDoTime(String nomeTime) throws Exception{
 		DAO.begin();
-		Time time = daotime.read(nomeTime);
-		if (time == null){
-			DAO.rollback();
-			throw new Exception("Nao existe um time com este nome");
-		}
-		ArrayList<Jogo> jogos = time.getJogos();
-
-
+		List<Jogo> jogos = daojogo.dataTimeJoga(nomeTime);
 		DAO.commit();
 		return jogos;
 	}
 
 
 	// Consulta 2: Quantos ingressos individuais um determinado time vendeu
-	public static int numIngressosIndividuaisVendidosPorTime(String nomeTime) throws Exception {
-		ArrayList<Jogo> jogosDoTime = listarJogosDoTime(nomeTime);
-		int somaIng = 0;
-		for(Jogo jogo : jogosDoTime){
-			ArrayList<Ingresso> ingressosDoJogo = jogo.getIngressos();
-			for(Ingresso ingresso : ingressosDoJogo){
-				if (ingresso instanceof IngressoIndividual){
-					somaIng++;
-				}
-			}
-		}
-		return somaIng;
+	public static List<IngressoIndividual> numIngressosIndividuaisVendidosPorTime(String nomeTime) throws Exception {
+		DAO.begin();
+		List<IngressoIndividual> ingressos = daoingressoindividual.listarIngressosIndividuaisTime(nomeTime);
+		DAO.commit();
+		return ingressos;
 	}
 
 	//Consulta 3: Quantos ingressos-grupo foram vendidos por time
-	public static int numIngressosGrupoVendidosPorTime(String nomeTime) throws Exception {
-		ArrayList<Jogo> jogosDoTime = listarJogosDoTime(nomeTime);
-		int somaIng = 0;
-		for(Jogo jogo : jogosDoTime){
-			ArrayList<Ingresso> ingressosDoJogo = jogo.getIngressos();
-			for(Ingresso ingresso : ingressosDoJogo){
-				if (ingresso instanceof IngressoGrupo){
-					somaIng++;
-				}
-			}
-		}
-		return somaIng;
+	public static List<IngressoGrupo> numIngressosGrupoVendidosPorTime(String nomeTime) throws Exception {
+		DAO.begin();
+		List<IngressoGrupo> ingressos = daoingressogrupo.listarIngressosGrupoTime(nomeTime);
+		DAO.commit();
+		return ingressos;
 	}
 
 	//Consulta 4: Qual o estoque de ingressos disponíveis para cada jogo de um determinado time?
-	public static ArrayList<Jogo> estoqueTotalDoTime(String nomeTime) throws Exception {
+	public static List<Jogo> estoqueTotalDoTime(String nomeTime) throws Exception {
 		return listarJogosDoTime(nomeTime);
 	}
 
 	//Consulta 5: Quais os códigos dos ingressos de todos os jogos de um time?
-	public static ArrayList<Ingresso> codigosIngressoPorTime(String nomeTime) throws Exception{
-		ArrayList<Jogo> jogos = listarJogosDoTime(nomeTime);
-		ArrayList<Ingresso> ingressos = new ArrayList<Ingresso>();
-		for (Jogo jogo : jogos){
-			ingressos.addAll(jogo.getIngressos());
-		}
+	public static List<Ingresso> codigosIngressoPorTime(String nomeTime) throws Exception{
+		DAO.begin();
+		List<Ingresso> ingressos = daoingresso.ingressosTime(nomeTime);
+		DAO.commit();
 		return ingressos;
 	}
 }

@@ -125,7 +125,7 @@ public class TelaConsultas {
 						case 0: //Quais as datas dos jogos de um time X.
 							try {
 								String nomeTime = JOptionPane.showInputDialog("Digite o Nome do Time:");
-								ArrayList<Jogo>jogos = Fachada.listarJogosDoTime(nomeTime);
+								List<Jogo>jogos = Fachada.listarJogosDoTime(nomeTime);
 								//model contem todas as linhas e colunas da tabela
 								DefaultTableModel model = new DefaultTableModel();
 								//colunas
@@ -149,13 +149,13 @@ public class TelaConsultas {
 						case 1: //Quantos ingressos INDIVIDUAIS um time X vendeu
 							try {
 								String nomeTime = JOptionPane.showInputDialog("Digite o Nome do Time:");
-								int ingressosVendidos = Fachada.numIngressosIndividuaisVendidosPorTime(nomeTime);
+								List<IngressoIndividual> ingressos = Fachada.numIngressosIndividuaisVendidosPorTime(nomeTime);
 								//model contem todas as linhas e colunas da tabela
 								DefaultTableModel model = new DefaultTableModel();
 								//colunas
 								model.addColumn("Quantidade de Ingressos INDIVIDUAIS Vendidos");
 								//linhas
-								model.addRow(new Object[]{ingressosVendidos});
+								model.addRow(new Object[]{ingressos.size()});
 								table.setModel(model);
 								
 							}catch(Exception ex) {
@@ -165,13 +165,13 @@ public class TelaConsultas {
 						case 2: //Quantos ingressos em GRUPO um time X vendeu
 							try {
 								String nomeTime = JOptionPane.showInputDialog("Digite o Nome do Time:");
-								int ingressosVendidos = Fachada.numIngressosGrupoVendidosPorTime(nomeTime);
+								List<IngressoGrupo> ingressos = Fachada.numIngressosGrupoVendidosPorTime(nomeTime);
 								//model contem todas as linhas e colunas da tabela
 								DefaultTableModel model = new DefaultTableModel();
 								//colunas
-								model.addColumn("Quantidade de Ingressos em GRUPO Vendidos");
+								model.addColumn("Quantidade de Ingressos de GRUPO Vendidos");
 								//linhas
-								model.addRow(new Object[]{ingressosVendidos});
+								model.addRow(new Object[]{ingressos.size()});
 								table.setModel(model);
 								
 							}catch(Exception ex) {
@@ -181,7 +181,7 @@ public class TelaConsultas {
 						case 3: //Qual o estoque de ingressos disponíveis para os jogos de um time X
 							try {
 								String nomeTime = JOptionPane.showInputDialog("Digite o Nome do Time:");
-								ArrayList<Jogo>jogos = Fachada.estoqueTotalDoTime(nomeTime);
+								List<Jogo>jogos = Fachada.estoqueTotalDoTime(nomeTime);
 								//model contem todas as linhas e colunas da tabela
 								DefaultTableModel model = new DefaultTableModel();
 								//colunas
@@ -207,7 +207,7 @@ public class TelaConsultas {
 						case 4: //Quais os códigos dos ingressos de todos os jogos de um time X
 							try {
 								String nomeTime = JOptionPane.showInputDialog("Digite o Nome do Time:");
-								ArrayList<Ingresso>ingressos = Fachada.codigosIngressoPorTime(nomeTime);
+								List<Ingresso>ingressos = Fachada.codigosIngressoPorTime(nomeTime);
 								//model contem todas as linhas e colunas da tabela
 								DefaultTableModel model = new DefaultTableModel();
 								//colunas
