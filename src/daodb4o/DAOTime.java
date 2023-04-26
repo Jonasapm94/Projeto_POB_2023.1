@@ -28,6 +28,13 @@ public class DAOTime extends DAO<Time> {
 
 	}
 
+    public List<Time> listarTimesJogandoPorData(String data) {
+        Query q = manager.query();
+		q.constrain(Time.class);
+		q.descend("jogos").descend("data").constrain(data);
+		return q.execute();
+    }
+
 
 
 }

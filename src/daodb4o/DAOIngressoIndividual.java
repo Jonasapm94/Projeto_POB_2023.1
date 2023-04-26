@@ -21,5 +21,14 @@ public class DAOIngressoIndividual extends DAO<IngressoIndividual> {
 		else
 			return null;
 	}
+	
+	// Consulta 2: Quantos ingressos individuais um determinado time vendeu
+	public List<IngressoIndividual> listarIngressosIndividuaisTime(String nomeTime){
+		Query q = manager.query();
+		q.constrain(IngressoIndividual.class);
+		q.descend("jogo").descend("time1").descend("nome").constrain(nomeTime).or(q.descend("jogo").descend("time2").descend("nome").constrain(nomeTime));
+		List<IngressoIndividual> resultado = q.execute();
+		return resultado;
+	}
 
 }
