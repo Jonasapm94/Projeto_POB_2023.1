@@ -1,24 +1,35 @@
 /**********************************
  * IFPB - Curso Superior de Tec. em Sist. para Internet
  * Persistencia de objetos
- * Prof. Fausto Maranhão Ayres
+ * Prof. Fausto Maranhï¿½o Ayres
  **********************************/
 package modelo;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+
+@Entity
 public class Jogo {
+	@Id
 	private int id;
+	
 	private String data;
 	private String local;
 	private int estoque;
 	private double preco;
-	private Time time1;
-	private Time time2;
-	private ArrayList<Ingresso> ingressos = new ArrayList<>();
+	
+	@ManyToMany
+	private List<Time> times;
+	
+	@ManyToMany
+	private List<Ingresso> ingressos;
 
 	public Jogo(String data, String local, int estoque, double preco) {
-		//id será gerado pelo banco;
+		//id serï¿½ gerado pelo banco;
 		this.data = data;
 		this.local = local;
 		this.estoque = estoque;
@@ -84,29 +95,29 @@ public class Jogo {
 	}
 
 	public Time getTime1() {
-		return time1;
+		return times.get(0);
 	}
 
 	public Time getTime2() {
-		return time2;
+		return times.get(1);
 	}
 	
 	public void setTime1(Time time1) {
-		this.time1 = time1;
+		this.times.add(time1);
 	}
 
 	public void setTime2(Time time2) {
-		this.time2 = time2;
+		this.times.add(time2);
 	}
 
-	public ArrayList<Ingresso> getIngressos() {
+	public List<Ingresso> getIngressos() {
 		return ingressos;
 	}
 	@Override
 	public String toString() {
 
 		String texto = "id=" + id + ", data=" + data + ", local=" + local + ", estoque=" + estoque + ", preco=" + preco
-				+ ", time1=" + time1.getNome() + " x time2=" + time2.getNome();
+				+ ", time1=" + times.get(0).getNome() + " x time2=" + times.get(1).getNome();
 
 		texto += "\ningressos:";
 		for(Ingresso i : ingressos)

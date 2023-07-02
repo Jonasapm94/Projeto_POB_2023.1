@@ -5,29 +5,32 @@
  **********************************/
 package modelo;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("Individual")
 public class IngressoIndividual extends Ingresso {
-	private Jogo jogo;
-	
 
 	public IngressoIndividual(int codigo) {
 		super(codigo);
 	}
 
 	public double calcularValor() {
-		return 1.2 * jogo.getPreco();
+		return 1.2 * this.jogos.get(0).getPreco();
 	}
 
 	public Jogo getJogo() {
-		return jogo;
+		return jogos.get(0);
 	}
 
 	public void setJogo(Jogo jogo) {
-		this.jogo = jogo;
+		this.jogos.set(0,jogo);
 	}
 
 	@Override
 	public String toString() {
-		return "codigo=" + codigo + ", jogo=" + jogo.getId();
+		return "codigo=" + codigo + ", jogo=" + jogos.get(0).getId();
 	}
 	
 	

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import com.db4o.query.Query;
 
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 import modelo.Ingresso;
 import modelo.IngressoGrupo;
 import modelo.IngressoIndividual;
@@ -12,22 +14,21 @@ import modelo.IngressoIndividual;
 public class DAOIngresso extends DAO<Ingresso> {
 	
 	public Ingresso read (Object chave){
-
-		int codigo = (int) chave;	//casting para o tipo da chave
-		Query q = manager.query();
-		q.constrain(Ingresso.class);
-		q.descend("codigo").constrain(codigo);
-		List<Ingresso> resultados = q.execute();
-		if (resultados.size()>0)
-			return resultados.get(0);
-		else
+		
+		try {
+			int codigo = (int) chave;	//casting para o tipo da chave
+			TypedQuery<Ingresso> q = manager.createQuery("select i from Ingresso i where i.codigo = :n ",Ingresso.class);
+			q.setParameter("n", codigo);
+			return q.getSingleResult();
+		}catch(NoResultException e){
 			return null;
+		}
 	}
 
 	public List<Ingresso> listarIngressos(){
-		Query q = manager.query();
-		q.constrain(Ingresso.class);
-		return q.execute();
+		TypedQuery<Ingresso> q = manager.createQuery("select i from Ingresso i", Ingresso.class);
+		List<Ingresso> ingressos = q.getResultList();
+		return ingressos;
 	}
 	
 	//Consulta 5: Quais os códigos dos ingressos de todos os jogos de um time?

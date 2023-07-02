@@ -1,126 +1,119 @@
+
 /**********************************
- * IFPB - Curso Superior de Tec. em Sist. para Internet
- * Persistencia de Objetos
- * Prof. Fausto Maranh�o Ayres
+ * IFPB - SI
+ * POB - Persistencia de Objetos
+ * Prof. Fausto Ayres
  **********************************/
+
 
 package daojpa;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.List;
 
-import com.db4o.ObjectContainer;
-import com.db4o.query.Query;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
 
 public abstract class DAO<T> implements DAOInterface<T> {
-	protected static ObjectContainer manager;
+	protected static EntityManager manager;
 
-	public static void open(){	
-		manager = Util.conectarDb4oLocal();		//banco local
-		//manager = Util.conectarDb4oRemoto();		//banco remoto
+	public DAO(){}
+
+	public static void open(){
+		manager = Util.conectarBanco();
 	}
 
 	public static void close(){
-		Util.desconectar();
-		manager=null;
+		Util.fecharBanco();
 	}
-
-	//----------CRUD-----------------------
-
+	
 	public void create(T obj){
-		manager.store( obj );
+		manager.persist(obj);
 	}
-
-	public abstract T read(Object chave);	//sobrescrito nas subclasses
+	public abstract T read(Object chave);
 
 	public T update(T obj){
-		manager.store(obj);
-		return obj;
+		return manager.merge(obj);
 	}
-
 	public void delete(T obj) {
-		manager.delete(obj);
+		manager.remove(obj);
 	}
 
-	public void refresh(T obj){
-		manager.ext().refresh(obj, Integer.MAX_VALUE);
-	}
 
 	@SuppressWarnings("unchecked")
 	public List<T> readAll(){
-		manager.ext().purge();  	//limpar cache do manager
-
 		Class<T> type = (Class<T>) ((ParameterizedType) this.getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
-		Query q = manager.query();
-		q.constrain(type);
-		return (List<T>) q.execute();
+
+		TypedQuery<T> query = manager.createQuery("select x from " + type.getSimpleName() + " x",type);
+		return  query.getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
-	//deletar todos objetos de um tipo (e subtipo)
+	public List<T> readAllPagination(int firstResult, int maxResults) {
+		Class<T> type = (Class<T>) ((ParameterizedType) this.getClass()
+				.getGenericSuperclass()).getActualTypeArguments()[0];
+
+		return manager.createQuery("select x from " + type.getSimpleName() + " x",type)
+				.setFirstResult(firstResult - 1)
+				.setMaxResults(maxResults)
+				.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
 	public void deleteAll(){
 		Class<T> type = (Class<T>) ((ParameterizedType) this.getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
 
-		Query q = manager.query();
-		q.constrain(type);
-		for (Object t : q.execute()) {
-			manager.delete(t);
-		}
+		String tabela = type.getSimpleName();
+		Query query = manager.createQuery("delete from " + tabela);
+		query.executeUpdate();
+
 	}
 
-	//--------transa��o---------------
-	public static void begin(){	
-	}		// tem que ser vazio
 
+	//----------------------- TRANSA��O   ----------------------
+	public static void begin(){
+		if(!manager.getTransaction().isActive())
+			manager.getTransaction().begin();
+	}
 	public static void commit(){
-		manager.commit();
+		if(manager.getTransaction().isActive()){
+			manager.getTransaction().commit();
+			manager.clear();		// ---- esvazia o cache de objetos, se habilitado----
+		}
 	}
 	public static void rollback(){
-		manager.rollback();
+		if(manager.getTransaction().isActive())
+			manager.getTransaction().rollback();
 	}
 
-	//	gerar novo id para o tipo T, 
-	//  baseando-se no maior valor do atributo "id" 
+	public void lock(T obj) {
+		//usado somente no controle de concorrencia persimista
+		manager.lock(obj, LockModeType.PESSIMISTIC_WRITE); 
+	}
 
-	public int gerarId() {
-		@SuppressWarnings("unchecked")
-		Class<T> type =(Class<T>) ((ParameterizedType) this.getClass()
-				.getGenericSuperclass()).getActualTypeArguments()[0];
-
-		//verificar se o banco esta vazio 
-		if(manager.query(type).size()==0) {
-			return 1;			//primeiro id gerado
-		}
-		else {
-			//obter o maior valor de id para o tipo
-			Query q = manager.query();
-			q.constrain(type);
-			q.descend("id").orderDescending();
-			List<T> resultados =  q.execute();
-			if(resultados.isEmpty()) 
-				return 1; 		//nenhum resultado, retorna primeiro id 
-			else 
-				try {
-					//obter objeto localizado
-					T objeto =  resultados.get(0);
-					Field atributo = type.getDeclaredField("id") ;
-					atributo.setAccessible(true);
-					//obter atributo id do objeto localizado e incrementa-lo
-					int maxid = (Integer) atributo.get(objeto);  //valor do id
-					return maxid+1;
-
-				} catch(NoSuchFieldException e) {
-					throw new RuntimeException("classe "+type+" - nao tem atributo id");
-				} catch (IllegalAccessException e) {
-					throw new RuntimeException("classe "+type+" - atributo id inacessivel");
-				}
+	// acesso direto a classe de conex�o jdbc
+	public static Connection getConnectionJdbc() {
+		try {
+			EntityManagerFactory factory = manager.getEntityManagerFactory();
+			String driver = (String) factory.getProperties().get("jakarta.persistence.jdbc.driver");
+			String url = (String)	factory.getProperties().get("jakarta.persistence.jdbc.url");
+			String user = (String)	factory.getProperties().get("jakarta.persistence.jdbc.user");
+			String pass = (String)	factory.getProperties().get("jakarta.persistence.jdbc.password");
+			Class.forName(driver);
+			return DriverManager.getConnection(url, user, pass);
+		} 
+		catch (Exception ex) {
+			return null;
 		}
 	}
 
-	
 }
 

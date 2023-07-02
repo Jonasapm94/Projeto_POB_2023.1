@@ -6,11 +6,25 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+
+@Entity
 public class Time {
+	
+	@Id
 	private String nome;
 	private String origem;
-	private ArrayList<Jogo> jogos = new ArrayList<>();
+	
+	@ManyToMany(mappedBy="times",
+				cascade= {CascadeType.MERGE,
+						  CascadeType.PERSIST})
+	private List<Jogo> jogos;
 
 	
 	public Time(String nome, String origem) {
@@ -50,7 +64,7 @@ public class Time {
 		this.origem = origem;
 	}
 
-	public ArrayList<Jogo> getJogos(){
+	public List<Jogo> getJogos(){
 		return this.jogos;
 	}
 
