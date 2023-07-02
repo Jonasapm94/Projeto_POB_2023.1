@@ -45,8 +45,8 @@ public class Util {
 					logger.info("configurando postgresql");
 					configuracoes.setProperty("jakarta.persistence.jdbc.driver",  "org.postgresql.Driver" );
 					configuracoes.setProperty("jakarta.persistence.jdbc.url", "jdbc:postgresql://"+ip+":5432/"+banco);
-					configuracoes.setProperty("jakarta.persistence.jdbc.user", "postgres");
-					configuracoes.setProperty("jakarta.persistence.jdbc.password", "ifpb");
+					configuracoes.setProperty("jakarta.persistence.jdbc.user", "gonzaga");
+					configuracoes.setProperty("jakarta.persistence.jdbc.password", "zooht06");
 					if(provedor.equals("hibernate")) {
 						configuracoes.setProperty("hibernate.dialect",  "org.hibernate.dialect.PostgreSQLDialect" );
 					}
@@ -64,6 +64,7 @@ public class Util {
 				//-----------------------------------------------------------------------------------
 				factory = Persistence.createEntityManagerFactory(provedor+"-"+sgbd, configuracoes);
 				manager = factory.createEntityManager();
+				System.out.println("Util Funcionando");
 
 			}
 			catch (Exception e) {

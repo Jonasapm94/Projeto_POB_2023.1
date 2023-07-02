@@ -33,17 +33,19 @@ public class DAOIngresso extends DAO<Ingresso> {
 	
 	//Consulta 5: Quais os códigos dos ingressos de todos os jogos de um time?
 	
-	public List<Ingresso> ingressosTime(String nomeTime){
-		List<Ingresso> resultado = new ArrayList<Ingresso>();
-		Query q = manager.query();
-		q.constrain(IngressoIndividual.class);
-		q.descend("jogo").descend("time1").descend("nome").constrain(nomeTime).or(q.descend("jogo").descend("time2").descend("nome").constrain(nomeTime));
-		resultado.addAll(q.execute());
-		q = manager.query();
-		q.constrain(IngressoGrupo.class);
-		q.descend("jogos").descend("time1").descend("nome").constrain(nomeTime).or(q.descend("jogos").descend("time2").descend("nome").constrain(nomeTime));
-		resultado.addAll(q.execute());
-		return resultado;
+	//public List<Ingresso> ingressosTime(String nomeTime){
+//		List<Ingresso> resultado = new ArrayList<Ingresso>();
+//		Query q = manager.query();
+//		q.constrain(IngressoIndividual.class);
+//		q.descend("jogo").descend("time1").descend("nome").constrain(nomeTime).or(q.descend("jogo").descend("time2").descend("nome").constrain(nomeTime));
+//		resultado.addAll(q.execute());
+//		q = manager.query();
+//		q.constrain(IngressoGrupo.class);
+//		q.descend("jogos").descend("time1").descend("nome").constrain(nomeTime).or(q.descend("jogos").descend("time2").descend("nome").constrain(nomeTime));
+//		resultado.addAll(q.execute());
+//		return resultado;
+		
+		//TypedQuery<Ingresso> q = manager.createQuery("Select ") 
 	}
 
 }

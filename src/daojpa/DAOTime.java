@@ -4,37 +4,36 @@ import java.util.List;
 
 import com.db4o.query.Query;
 
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
+import modelo.Ingresso;
 import modelo.Time;
 
 public class DAOTime extends DAO<Time> {
 	
 	public Time read (Object chave){
-
-		String nome = (String) chave;	//casting para o tipo da chave
-		Query q = manager.query();
-		q.constrain(Time.class);
-		q.descend("nome").constrain(nome);
-		List<Time> resultados = q.execute();
-		if (resultados.size()>0)
-			return resultados.get(0);
-		else
+		
+		try {
+			String nome = (String) chave;	//casting para o tipo da chave
+			TypedQuery<Time> q = manager.createQuery("select t from Time t where t.nome = :n ",Time.class);
+			q.setParameter("n", nome);
+			return q.getSingleResult();
+		}catch(NoResultException e){
 			return null;
+		}
 	}
 
 	public List<Time> listarTimes(){
-		Query q = manager.query();
-		q.constrain(Time.class);
-		return q.execute();
+		TypedQuery<Time> q = manager.createQuery("select t from Time t",Time.class);
+		return q.getResultList();
 
 	}
 
-    public List<Time> listarTimesJogandoPorData(String data) {
-        Query q = manager.query();
-		q.constrain(Time.class);
-		q.descend("jogos").descend("data").constrain(data);
-		return q.execute();
-    }
+	//Consulta 4: Quais os Times que jogam em uma determinada Data?
 
-
-
+//    public List<Time> listarTimesJogandoPorData(String data) {
+//    	TypedQuery<Time> q = manager.createQuery("select t from Time t where t.nome = :n ",Time.class);
+//		q.setParameter("n", data);
+//		return q.getResultList();
+//    }
 }

@@ -10,20 +10,23 @@ import java.util.List;
 
 import com.db4o.query.Query;
 
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
+import modelo.Jogo;
 import modelo.Usuario;
 
 public class DAOUsuario extends DAO<Usuario>{
 
 	public Usuario read (Object chave){
-		String email = (String) chave;	//casting para o tipo da chave
-		Query q = manager.query();
-		q.constrain(Usuario.class);
-		q.descend("email").constrain(email);
-		List<Usuario> resultados = q.execute();
-		if (resultados.size()>0)
-			return resultados.get(0);
-		else
-			return null;
+		try {
+			 String email = (String) chave;	//casting para o tipo da chave
+		     TypedQuery<Usuario> q = manager.createQuery("select u from Usuario u where u.id = :e", Usuario.class);
+		     q.setParameter("e", email);
+		     Usuario usuario = q.getSingleResult();
+		     return usuario;
+		 }	catch (NoResultException e) {
+			 return null;      
+	    }
 	}
 
 	//--------------------------------------------
@@ -31,9 +34,8 @@ public class DAOUsuario extends DAO<Usuario>{
 	//--------------------------------------------
 
 	public List<Usuario> listarUsuarios(){
-		Query q = manager.query();
-		q.constrain(Usuario.class);
-		return q.execute();
+		TypedQuery<Usuario> q = manager.createQuery("select u from Usuario u", Usuario.class);
+		return q.getResultList();
 	}
 	
 }
