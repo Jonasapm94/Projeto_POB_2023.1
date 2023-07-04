@@ -125,7 +125,7 @@ public class TelaConsultas {
 						case 0: //Quais as datas dos jogos de um time X.
 							try {
 								String nomeTime = JOptionPane.showInputDialog("Digite o Nome do Time:");
-								ArrayList<Jogo>jogos = Fachada.listarJogosDoTime(nomeTime);
+								List<Jogo> jogos = Fachada.listarJogosDoTime(nomeTime);
 								//model contem todas as linhas e colunas da tabela
 								DefaultTableModel model = new DefaultTableModel();
 								//colunas
@@ -181,7 +181,7 @@ public class TelaConsultas {
 						case 3: //Qual o estoque de ingressos disponíveis para os jogos de um time X
 							try {
 								String nomeTime = JOptionPane.showInputDialog("Digite o Nome do Time:");
-								ArrayList<Jogo>jogos = Fachada.estoqueTotalDoTime(nomeTime);
+								List<Jogo> jogos = Fachada.estoqueTotalDoTime(nomeTime);
 								//model contem todas as linhas e colunas da tabela
 								DefaultTableModel model = new DefaultTableModel();
 								//colunas
@@ -207,7 +207,7 @@ public class TelaConsultas {
 						case 4: //Quais os códigos dos ingressos de todos os jogos de um time X
 							try {
 								String nomeTime = JOptionPane.showInputDialog("Digite o Nome do Time:");
-								ArrayList<Ingresso>ingressos = Fachada.codigosIngressoPorTime(nomeTime);
+								List<Ingresso> ingressos = Fachada.codigosIngressoPorTime(nomeTime);
 								//model contem todas as linhas e colunas da tabela
 								DefaultTableModel model = new DefaultTableModel();
 								//colunas

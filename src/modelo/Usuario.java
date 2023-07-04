@@ -1,9 +1,15 @@
 package modelo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Usuario {
+	@Id
 	private String email;
 	private String senha;
 	
+	public Usuario(){}
 	public Usuario(String nome, String senha) {
 		super();
 		this.email = nome;

@@ -6,11 +6,14 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class IngressoGrupo extends Ingresso {
 	
-	private ArrayList<Jogo> jogos = new ArrayList<>();
-	
+	public IngressoGrupo(){}
 	public IngressoGrupo(int codigo) {
 		super(codigo);
 	}
@@ -37,7 +40,7 @@ public class IngressoGrupo extends Ingresso {
 		return null;
 	}
 
-	public ArrayList<Jogo> getJogos() {
+	public List<Jogo> getJogos() {
 		return jogos;
 	}
 
@@ -50,6 +53,5 @@ public class IngressoGrupo extends Ingresso {
 		
 		return texto;
 	}
-	
 	
 }
