@@ -10,7 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import daodb4o.*;
+import daojpa.DAOIngressoGrupoJPA;
+import daojpa.DAOIngressoIndividualJPA;
+import daojpa.DAOIngressoJPA;
+import daojpa.DAOJPA;
+import daojpa.DAOJogoJPA;
+import daojpa.DAOTimeJPA;
+import daojpa.DAOUsuarioJPA;
 import modelo.Ingresso;
 import modelo.IngressoGrupo;
 import modelo.IngressoIndividual;
@@ -21,93 +27,93 @@ import modelo.Usuario;
 public class Fachada {
 	private Fachada() {}	
 
-	private static DAOUsuario daousuario = new DAOUsuario(); 
-	private static DAOTime daotime = new DAOTime(); 
-	private static DAOJogo daojogo = new DAOJogo(); 
-	private static DAOIngresso daoingresso = new DAOIngresso(); 
-	private static DAOIngressoIndividual daoingressoindividual = new DAOIngressoIndividual(); 
-	private static DAOIngressoGrupo daoingressogrupo = new DAOIngressoGrupo(); 
+	private static DAOUsuarioJPA daousuario = new DAOUsuarioJPA(); 
+	private static DAOTimeJPA daotime = new DAOTimeJPA(); 
+	private static DAOJogoJPA daojogo = new DAOJogoJPA(); 
+	private static DAOIngressoJPA daoingresso = new DAOIngressoJPA(); 
+	private static DAOIngressoIndividualJPA daoingressoindividual = new DAOIngressoIndividualJPA(); 
+	private static DAOIngressoGrupoJPA daoingressogrupo = new DAOIngressoGrupoJPA(); 
 
 
 	public static Usuario logado;
 	public static void inicializar(){
-		DAO.open();
+		DAOJPA.open();
 	}
 	public static void finalizar(){
-		DAO.close();
+		DAOJPA.close();
 	}
 
 
 	public static List<Time> listarTimes() {
 		//retorna todos os times
-		DAO.begin();
+		DAOJPA.begin();
 		List<Time> times = daotime.listarTimes();
-		DAO.commit();
+		DAOJPA.commit();
 		return times;
 	}
 	
 	public static List<Jogo> listarJogos() {
 		//retorna todos os jogos
-		DAO.begin();
+		DAOJPA.begin();
 		List<Jogo> jogos = daojogo.listarJogos();
-		DAO.commit();
+		DAOJPA.commit();
 		return jogos;
 	}
 	
 	public static List<Usuario> listarUsuarios() {
 		//retorna todos os usuarios
-		DAO.begin();
+		DAOJPA.begin();
 		List<Usuario> usuarios = daousuario.listarUsuarios();
-		DAO.commit();
+		DAOJPA.commit();
 		return usuarios;
 	}
 	
 	public static List<Ingresso> listarIngressos() {
 		//retorna todos os ingressos 
-		DAO.begin();
+		DAOJPA.begin();
 		List<Ingresso> ingressos = daoingresso.listarIngressos();
-		DAO.commit();
+		DAOJPA.commit();
 		return ingressos;
 	}
 	public static List<Jogo> listarJogos(String data) {
 		//retorna os jogos na data fornecida (query)
-		DAO.begin();
+		DAOJPA.begin();
 		List<Jogo> jogos = daojogo.listarJogos(data);
-		DAO.commit();
+		DAOJPA.commit();
 
 		return jogos;
 	}
 	public static Ingresso localizarIngresso(int codigo) {
 		//retorna o ingresso com o c�digo fornecido
-		DAO.begin();
+		DAOJPA.begin();
 		Ingresso ingresso = daoingresso.read(codigo);
-		DAO.commit();
+		DAOJPA.commit();
 		return ingresso;
 	}
 
 	public static Jogo	localizarJogo(int id) {
 		//retorna o jogo com o id fornecido
-		DAO.begin();
+		DAOJPA.begin();
 		Jogo jogo = daojogo.read(id);
-		DAO.commit();
+		DAOJPA.commit();
 		return jogo;
 	}
 
 	public static Usuario criarUsuario(String email, String senha) throws Exception{
-		DAO.begin(); 
+		DAOJPA.begin(); 
 		Usuario usu = daousuario.read(email);
 		if (usu!=null) {
-			DAO.rollback();
+			DAOJPA.rollback();
 			throw new Exception("Usuario ja cadastrado: " + email);
 		}
 		usu = new Usuario(email, senha);
 
 		daousuario.create(usu);
-		DAO.commit();
+		DAOJPA.commit();
 		return usu;
 	}
 	public static Usuario validarUsuario(String email, String senha) {
-		DAO.begin();
+		DAOJPA.begin();
 		Usuario usu = daousuario.read(email);
 		if (usu==null)
 			return null;
@@ -115,12 +121,12 @@ public class Fachada {
 		if (! usu.getSenha().equals(senha))
 			return null;
 
-		DAO.commit();
+		DAOJPA.commit();
 		return usu;
 	}
 
 	public static Time 	criarTime(String nome, String origem) throws Exception {
-		DAO.begin();
+		DAOJPA.begin();
 		if (nome.trim().equals("")) {
 			throw new Exception("Nome do time vazio.");
 		}
@@ -133,7 +139,7 @@ public class Fachada {
 		Time timeTemp = daotime.read(nome);
 
 		if (timeTemp != null){
-			DAO.rollback();
+			DAOJPA.rollback();
 			throw new Exception("Nome de time já existe.");
 		}
 		//criar o time
@@ -141,51 +147,51 @@ public class Fachada {
 		
 		//gravar time no banco
 		daotime.create(time);
-		DAO.commit();
+		DAOJPA.commit();
 		return time;
 	}
 
 	public static Jogo 	criarJogo(String data, String local, int estoque, double preco, String nometime1, String nometime2)  throws Exception {
-		DAO.begin();
+		DAOJPA.begin();
 		//verificar regras de negocio
 
 		if (preco <= 0){
-			DAO.rollback();
+			DAOJPA.rollback();
 			throw new Exception("Jogo nao pode ser criado com preco menor ou igual a zero.");
 		}
 
 		//RN4
-		int newId = daojogo.gerarId();
+		// int newId = daojogo.gerarId();
 
 		if (estoque <= 0){
-			DAO.rollback();
+			DAOJPA.rollback();
 			throw new Exception("Jogo nao pode ser criado com estoque menor ou igual a zero.");
 
 		}
 
 		//RN5
 		if(nometime1.equals(nometime2)){
-			DAO.rollback();
+			DAOJPA.rollback();
 			throw new Exception("Nomes de times iguais");
 		}
 
 		//localizar time1 e time2
 		Time time1 = daotime.read(nometime1);
 		if(time1 == null){
-			DAO.rollback();
+			DAOJPA.rollback();
 			throw new Exception("Não existe um time com este nome: " + nometime1);
 		}
 
 		Time time2 = daotime.read(nometime2);
 		if(time2 == null){
-			DAO.rollback();
+			DAOJPA.rollback();
 			throw new Exception("Não existe um time com este nome: " + nometime2);
 		}
 
 
 		//criar  jogo 
 		Jogo jogo = new Jogo(data, local, estoque, preco);
-		jogo.setId(newId);
+		// jogo.setId(newId);
 
 		//relacionar o jogo com os times e vice-versa 
 		jogo.setTime1(time1);
@@ -195,12 +201,12 @@ public class Fachada {
 		
 		//gravar jogo no banco
 		daojogo.create(jogo);
-		DAO.commit();
+		DAOJPA.commit();
 		return jogo;
 	}
 
 	public static IngressoIndividual criarIngressoIndividual(int idJogo) throws Exception{
-		DAO.begin();
+		DAOJPA.begin();
 		//verificar regras de negocio
 		//gerar codigo aleat�rio
 		//verificar unicididade do codigo no sistema
@@ -227,7 +233,7 @@ public class Fachada {
 		Jogo jogo = daojogo.read(idJogo);
 
 		if(jogo == null){
-			DAO.rollback();
+			DAOJPA.rollback();
 			throw new Exception("Nao existe um jogo com este id informado: " + idJogo);
 		}
 
@@ -238,12 +244,12 @@ public class Fachada {
 
 		//gravar ingresso no banco
 		daoingresso.create(ingresso);
-		DAO.commit();
+		DAOJPA.commit();
 		return ingresso;
 	}
 
 	public static IngressoGrupo	criarIngressoGrupo(int[] ids) throws Exception{
-		DAO.begin();
+		DAOJPA.begin();
 		//verificar regras de negocio
 		//gerar codigo aleat�rio
 		//verificar unicididade no sistema
@@ -269,7 +275,7 @@ public class Fachada {
 		for (int id : ids){
 			Jogo jogo = daojogo.read(id);
 			if (jogo == null){
-				DAO.rollback();
+				DAOJPA.rollback();
 				throw new Exception("Não existe um jogo com este id informado: " + id);
 			}
 			jogo.adicionar(ingresso);
@@ -279,12 +285,12 @@ public class Fachada {
 		}
 		//gravar ingresso no banco
 		daoingresso.create(ingresso);
-		DAO.commit();
+		DAOJPA.commit();
 		return ingresso;
 	}
 
 	public static void	apagarIngresso(int codigo) throws Exception {
-		DAO.begin();
+		DAOJPA.begin();
 		//o codigo refere-se a ingresso individual ou grupo
 		//verificar regras de negocio
 
@@ -292,11 +298,11 @@ public class Fachada {
 
 		Ingresso ingresso = daoingresso.read(codigo);
 		if (ingresso == null){
-			DAO.rollback();
+			DAOJPA.rollback();
 			throw new Exception("Nao existe ingresso com este código");
 		}
 		if (ingresso instanceof IngressoGrupo grupo) {
-			ArrayList<Jogo> jogos = grupo.getJogos();
+			List<Jogo> jogos = grupo.getJogos();
 			for (Jogo j : jogos) {
 				j.remover(grupo);
 				j.setEstoque(j.getEstoque()+1);
@@ -313,37 +319,37 @@ public class Fachada {
 
 		//apagar ingresso no banco
 		daoingresso.delete(ingresso);
-		DAO.commit();
+		DAOJPA.commit();
 	}
 
 	public static void	apagarTime(String nome) throws Exception {
-		DAO.begin();
+		DAOJPA.begin();
 		//verificar regras de negocio
 		//apagar time no banco
 		Time time = daotime.read(nome);
 		if(time == null){
-			DAO.rollback();
+			DAOJPA.rollback();
 			throw new Exception("Nao existe time com este nome.");
 		}
 		if(time.getJogos().size() > 0){
-			DAO.rollback();
+			DAOJPA.rollback();
 			throw new Exception ("Time possui jogos. Não podera ser excluido");
 		}
 		daotime.delete(time);
-		DAO.commit();
+		DAOJPA.commit();
 	}
 
 	public static void 	apagarJogo(int id) throws Exception{
-		DAO.begin();
+		DAOJPA.begin();
 		//verificar regras de negocio
 		//apagar jogo no banco
 		Jogo jogo = daojogo.read(id);
 		if (jogo == null){
-			DAO.rollback();
+			DAOJPA.rollback();
 			throw new Exception("Nao existe jogo com o id informado.");
 		}
 		if (jogo.getIngressos().size() > 0){
-			DAO.rollback();
+			DAOJPA.rollback();
 			throw new Exception("Jogo possui ingressos vendidos, não pode ser excluido.");
 		}
 		
@@ -357,7 +363,7 @@ public class Fachada {
 
 		daojogo.delete(jogo);
 		
-		DAO.commit();
+		DAOJPA.commit();
 	}
 
 	/**********************************
@@ -366,16 +372,16 @@ public class Fachada {
 
 //	Consulta 1: Quais as datas que time x joga
 	public static List<Jogo> listarJogosDoTime(String nomeTime) throws Exception{
-		DAO.begin();
+		DAOJPA.begin();
 		Time time = daotime.read(nomeTime);
 		if (time == null){
-			DAO.rollback();
+			DAOJPA.rollback();
 			throw new Exception("Nao existe um time com este nome");
 		}
 		List<Jogo> jogos = time.getJogos();
 
 
-		DAO.commit();
+		DAOJPA.commit();
 		return jogos;
 	}
 
@@ -410,26 +416,18 @@ public class Fachada {
 		return somaIng;
 	}
 
-	//Consulta 4: Qual o estoque de ingressos disponíveis para os jogos de um determinado time?
-	public static int estoqueTotalDoTime(String nomeTime) throws Exception {
-		List<Jogo> jogos = listarJogosDoTime(nomeTime);
-		int estoqueTotal = 0;
-		for(Jogo jogo: jogos){
-			estoqueTotal += jogo.getEstoque();
-		}
-		return estoqueTotal;
+	//Consulta 4: Qual o estoque de ingressos disponíveis para cada jogo de um determinado time?
+	public static List<Jogo> estoqueTotalDoTime(String nomeTime) throws Exception {
+		return listarJogosDoTime(nomeTime);
 	}
 
 	//Consulta 5: Quais os códigos dos ingressos de todos os jogos de um time?
-	public static ArrayList<Integer> codigosIngressoPorTime(String nomeTime) throws Exception{
+	public static List<Ingresso> codigosIngressoPorTime(String nomeTime) throws Exception{
 		List<Jogo> jogos = listarJogosDoTime(nomeTime);
-		ArrayList<Integer> codigos = new ArrayList<>();
+		List<Ingresso> ingressos = new ArrayList<Ingresso>();
 		for (Jogo jogo : jogos){
-			for(Ingresso ingresso: jogo.getIngressos()){
-				codigos.add(ingresso.getCodigo());
-			}
+			ingressos.addAll(jogo.getIngressos());
 		}
-
-		return codigos;
+		return ingressos;
 	}
 }

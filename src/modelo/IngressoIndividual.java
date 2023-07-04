@@ -1,34 +1,37 @@
 /**********************************
  * IFPB - Curso Superior de Tec. em Sist. para Internet
  * Persistencia de objetos
- * Prof. Fausto Maranhão Ayres
+ * Prof. Fausto Maranhï¿½o Ayres
  **********************************/
 package modelo;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class IngressoIndividual extends Ingresso {
-	private Jogo jogo;
-	
 
 	public IngressoIndividual(int codigo) {
 		super(codigo);
 	}
-
+	
+	public IngressoIndividual(){}
+	
 	public double calcularValor() {
-		return 1.2 * jogo.getPreco();
+		return 1.2 * jogos.get(0).getPreco();
 	}
 
 	public Jogo getJogo() {
-		return jogo;
+		return jogos.get(0);
 	}
 
 	public void setJogo(Jogo jogo) {
-		this.jogo = jogo;
-		jogo.setEstoque(jogo.getEstoque() - 1 );
+		this.jogos.add(0,jogo);
+		jogo.setEstoque(jogo.getEstoque() - 1);
 	}
 
 	@Override
 	public String toString() {
-		return "codigo=" + codigo + ", jogo=" + jogo.getId();
+		return "codigo=" + codigo + ", jogo=" + jogos.get(0).getId();
 	}
 	
 	

@@ -6,13 +6,25 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+@Entity
 public class Time {
+	
+	@Id
 	private String nome;
 	private String origem;
-	private ArrayList<Jogo> jogos = new ArrayList<>();
-
 	
+	@OneToMany(cascade= {CascadeType.ALL})
+	private List<Jogo> jogos = new ArrayList<>();
+
+	public Time(){}
 	public Time(String nome, String origem) {
 		super();
 		this.nome = nome;
@@ -50,7 +62,7 @@ public class Time {
 		this.origem = origem;
 	}
 
-	public ArrayList<Jogo> getJogos(){
+	public List<Jogo> getJogos(){
 		return this.jogos;
 	}
 

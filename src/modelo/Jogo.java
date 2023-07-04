@@ -1,24 +1,53 @@
 /**********************************
  * IFPB - Curso Superior de Tec. em Sist. para Internet
  * Persistencia de objetos
- * Prof. Fausto Maranhão Ayres
+ * Prof. Fausto Maranhï¿½o Ayres
  **********************************/
 package modelo;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
+
+@Entity
 public class Jogo {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
 	private String data;
 	private String local;
 	private int estoque;
 	private double preco;
-	private Time time1;
-	private Time time2;
-	private ArrayList<Ingresso> ingressos = new ArrayList<>();
 
-	public Jogo(String data, String local, int estoque, double preco) {
-		//id será gerado pelo banco;
+	@OneToOne
+	private Time time1;
+	
+	@OneToOne
+	private Time time2;
+
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	private List<Ingresso> ingressos = new ArrayList<>();
+
+	public Jogo(){}
+	public Jogo(int id, String data, String local, int estoque, double preco) {
+		//id sera gerado pelo banco;
+		this.id = id;
+		this.data = data;
+		this.local = local;
+		this.estoque = estoque;
+		this.preco = preco;
+	}
+	public Jogo( String data, String local, int estoque, double preco) {
+		//id sera gerado pelo banco;
 		this.data = data;
 		this.local = local;
 		this.estoque = estoque;
@@ -51,9 +80,9 @@ public class Jogo {
 	public int getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
+	// public void setId(int id) {
+	// 	this.id = id;
+	// }
 	public String getData() {
 		return data;
 	}
@@ -99,7 +128,7 @@ public class Jogo {
 		this.time2 = time2;
 	}
 
-	public ArrayList<Ingresso> getIngressos() {
+	public List<Ingresso> getIngressos() {
 		return ingressos;
 	}
 	@Override
