@@ -20,9 +20,9 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.ManyToMany;
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="tipo", discriminatorType = DiscriminatorType.INTEGER)
-@DiscriminatorValue("1")
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+//@DiscriminatorColumn(name="tipo", discriminatorType = DiscriminatorType.INTEGER)
+//@DiscriminatorValue("1")
 public abstract class Ingresso  {
 	
 	@Id

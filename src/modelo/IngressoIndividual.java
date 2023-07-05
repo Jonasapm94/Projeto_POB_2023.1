@@ -10,7 +10,7 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("2")
+//@DiscriminatorValue("2")
 public class IngressoIndividual extends Ingresso {
 
 	public IngressoIndividual(int codigo) {

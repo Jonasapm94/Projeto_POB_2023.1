@@ -17,8 +17,6 @@ import daojpa.DAOJPA;
 import daojpa.DAOJogoJPA;
 import daojpa.DAOTimeJPA;
 import daojpa.DAOUsuarioJPA;
-import jakarta.persistence.Transient;
-import jakarta.transaction.Transactional;
 import modelo.Ingresso;
 import modelo.IngressoGrupo;
 import modelo.IngressoIndividual;
@@ -221,7 +219,7 @@ public class Fachada {
 		do {
 			codigo = new Random().nextInt(1000000);
 			flag = false;
-			if(daoingresso.read(codigo)!=null) {
+			if(daoingressoindividual.read(codigo)!=null) {
 				flag = true;
 			}
 		} while (flag);
@@ -244,7 +242,7 @@ public class Fachada {
 		daojogo.update(jogo);
 
 		//gravar ingresso no banco
-		daoingresso.create(ingresso);
+		daoingressoindividual.create(ingresso);
 		DAOJPA.commit();
 		return ingresso;
 	}
@@ -263,7 +261,7 @@ public class Fachada {
 		do {
 			codigo = new Random().nextInt(1000000);
 			flag = false;
-			if(daoingresso.read(codigo)!=null) {
+			if(daoingressogrupo.read(codigo)!=null) {
 				flag = true;
 			}
 		} while (flag);
