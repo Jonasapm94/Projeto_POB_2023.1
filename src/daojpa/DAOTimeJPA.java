@@ -22,7 +22,7 @@ public class DAOTimeJPA extends DAOJPA<Time>{
 
     public List<Time> listarTimes(){
         try {
-            TypedQuery q = manager.createQuery("select t from Time t", Time.class);
+            TypedQuery<Time> q = manager.createQuery("select t from Time t", Time.class);
             return q.getResultList();
         } catch (NoResultException e) {
             return null;

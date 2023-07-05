@@ -17,6 +17,8 @@ import daojpa.DAOJPA;
 import daojpa.DAOJogoJPA;
 import daojpa.DAOTimeJPA;
 import daojpa.DAOUsuarioJPA;
+import jakarta.persistence.Transient;
+import jakarta.transaction.Transactional;
 import modelo.Ingresso;
 import modelo.IngressoGrupo;
 import modelo.IngressoIndividual;
@@ -210,7 +212,8 @@ public class Fachada {
 		//verificar regras de negocio
 		//gerar codigo aleat�rio
 		//verificar unicididade do codigo no sistema
-		List<Ingresso> ingressos = daoingresso.listarIngressos();
+		
+		//List<Ingresso> ingressos = daoingresso.listarIngressos();
 
 		int codigo;
 		boolean flag;
@@ -218,10 +221,8 @@ public class Fachada {
 		do {
 			codigo = new Random().nextInt(1000000);
 			flag = false;
-			for( Ingresso ingresso : ingressos){
-				if(ingresso.getCodigo() == codigo){
-					flag = true;
-				}
+			if(daoingresso.read(codigo)!=null) {
+				flag = true;
 			}
 		} while (flag);
 
@@ -253,7 +254,8 @@ public class Fachada {
 		//verificar regras de negocio
 		//gerar codigo aleat�rio
 		//verificar unicididade no sistema
-		List<Ingresso> ingressos = daoingresso.listarIngressos();
+		
+		//List<Ingresso> ingressos = daoingresso.listarIngressos();
 
 		int codigo;
 		boolean flag;
@@ -261,15 +263,14 @@ public class Fachada {
 		do {
 			codigo = new Random().nextInt(1000000);
 			flag = false;
-			for( Ingresso ingresso : ingressos){
-				if(ingresso.getCodigo() == codigo){
-					flag = true;
-				}
+			if(daoingresso.read(codigo)!=null) {
+				flag = true;
 			}
 		} while (flag);
 
-		//criar o ingresso grupo 
+		//criar o ingresso grupo
 		IngressoGrupo ingresso = new IngressoGrupo(codigo);
+		
 		
 		//relacionar este ingresso com os jogos indicados e vice-versa
 		for (int id : ids){
@@ -284,7 +285,7 @@ public class Fachada {
 			daojogo.update(jogo);
 		}
 		//gravar ingresso no banco
-		daoingresso.create(ingresso);
+		daoingressogrupo.create(ingresso);
 		DAOJPA.commit();
 		return ingresso;
 	}

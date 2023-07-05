@@ -5,8 +5,8 @@
  **********************************/
 package modelo;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -20,7 +20,7 @@ import jakarta.persistence.OneToOne;
 public class Jogo {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	private String data;
@@ -55,14 +55,14 @@ public class Jogo {
 	}
 	
 	public void adicionar(Ingresso i){
-		ingressos.add(i);
+		this.ingressos.add(i);
 	}
 	public void remover(Ingresso i){
-		ingressos.remove(i);
+		this.ingressos.remove(i);
 	}
 
 	public Ingresso localizar(int codigo){
-		for(Ingresso i : ingressos){
+		for(Ingresso i : this.ingressos){
 			if(i.getCodigo() == codigo)
 				return i;
 		}
@@ -71,7 +71,7 @@ public class Jogo {
 
 	public double obterValorArrecadado() {
 		double soma=0;
-		for(Ingresso i : ingressos)
+		for(Ingresso i : this.ingressos)
 			soma = soma + i.calcularValor();
 
 		return soma;
@@ -129,7 +129,7 @@ public class Jogo {
 	}
 
 	public List<Ingresso> getIngressos() {
-		return ingressos;
+		return this.ingressos;
 	}
 	@Override
 	public String toString() {
@@ -138,7 +138,7 @@ public class Jogo {
 				+ ", time1=" + time1.getNome() + " x time2=" + time2.getNome();
 
 		texto += "\ningressos:";
-		for(Ingresso i : ingressos)
+		for(Ingresso i : this.ingressos)
 			texto += i.getCodigo() + ",";
 		return texto;
 	}

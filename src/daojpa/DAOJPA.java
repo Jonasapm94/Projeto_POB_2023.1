@@ -11,6 +11,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 
 
 public abstract class DAOJPA<T> implements DAOInterfaceJPA<T> {
@@ -34,6 +35,7 @@ public abstract class DAOJPA<T> implements DAOInterfaceJPA<T> {
 			System.out.println(e);
 		}
 	}
+
 	public abstract T read(Object chave);
 
 	public T update(T obj){
@@ -81,6 +83,7 @@ public abstract class DAOJPA<T> implements DAOInterfaceJPA<T> {
 		if(!manager.getTransaction().isActive())
 			manager.getTransaction().begin();
 	}
+
 	public static void commit(){
 		if(manager.getTransaction().isActive()){
 			manager.getTransaction().commit();

@@ -6,21 +6,30 @@
 
 package modelo;
 
+import java.util.List;
 import java.util.ArrayList;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.ManyToMany;
 
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="tipo", discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorValue("1")
 public abstract class Ingresso  {
 	
 	@Id
     protected int codigo;
 
 	@ManyToMany(mappedBy = "ingressos", cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
-	protected ArrayList<Jogo> jogos = new ArrayList<Jogo>();
+	protected List<Jogo> jogos = new ArrayList<Jogo>();
 	
 	public Ingresso(){}
 	

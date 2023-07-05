@@ -44,5 +44,10 @@
 		  <artifactId>hibernate-core</artifactId>
 		  <version>6.2.5.Final</version>
 	  </dependency>
+	  <dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
   </dependencies>
 </project>

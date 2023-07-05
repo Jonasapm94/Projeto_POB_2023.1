@@ -5,35 +5,37 @@
  **********************************/
 package modelo;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
+@DiscriminatorValue("3")
 public class IngressoGrupo extends Ingresso {
 	
-	public IngressoGrupo(){}
 	public IngressoGrupo(int codigo) {
 		super(codigo);
 	}
+	
+	public IngressoGrupo(){}
 
 	public double calcularValor() {
 		double soma=0;
-		for(Jogo j : jogos)
+		for(Jogo j : this.jogos)
 			soma = soma + j.getPreco();
 		
 		return 0.9 * soma;
 	}
 	
 	public void adicionar(Jogo j){
-		jogos.add(j);
+		this.jogos.add(j);
 	}
 	public void remover(Jogo j){
-		jogos.remove(j);
+		this.jogos.remove(j);
 	}
 	public Jogo localizar(int id){
-		for(Jogo j : jogos){
+		for(Jogo j : this.jogos){
 			if(j.getId() == id)
 				return j;
 		}
@@ -41,14 +43,14 @@ public class IngressoGrupo extends Ingresso {
 	}
 
 	public List<Jogo> getJogos() {
-		return jogos;
+		return this.jogos;
 	}
 
 	@Override
 	public String toString() {
 		String texto = "codigo=" + codigo + ", jogos:";
 		
-		for(Jogo j : jogos)
+		for(Jogo j : this.jogos)
 			texto += j.getId() + ",";
 		
 		return texto;
